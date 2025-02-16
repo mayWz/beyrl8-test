@@ -11,4 +11,12 @@ npm install -g ts-node
 
 ## Run script
 ```
+# Walking BOT 
+npm run walking-bot 
+
+# Binary Tree Node Search 
+
+
+# Reverse String
+
 ```
