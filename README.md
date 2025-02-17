@@ -9,14 +9,29 @@ npm install -g typescript
 npm install -g ts-node
 ```
 
+Question 1:
 ## Run script
 ```
 # Walking BOT 
 npm run walking-bot 
+```
 
-# Binary Tree Node Search 
+Question 2: 
+```
+Please check code on beryl8-test/src/binaryTreeNodeCounter.ts
+```
 
+Question 3: 
+```
+Please check code on beryl8-test/src/reserveString.ts
+```
 
-# Reverse String
+Question 4: 
+```
+Please check code on roundRobin.md
+```
 
+Question 5:
+```
+Please check code on beryl8-test/prisma/schema.prisma
 ```

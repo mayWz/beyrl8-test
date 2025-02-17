@@ -9,3 +9,83 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                String       @id @default(uuid())
+  firstName         String
+  midName           String
+  lastName          String
+  email             String?
+  emailVerified     Boolean      @default(false)
+  mobileCountryCode String?
+  mobilePhoneNumber String?
+  dateOfBirth       DateTime?
+  passportNumber    String?
+  city              String?
+  country           String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  FlightUser        FlightUser[]
+}
+
+model Flight {
+  id            String       @id @default(uuid())
+  flightRouteId String
+  flightRoute   FlightRoute  @relation(fields: [flightRouteId], references: [id])
+  isDelayed     Boolean
+  departureTime DateTime
+  arrivalTime   DateTime
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  FlightUser    FlightUser[]
+}
+
+model FlightRoute {
+  id   String @id @default(uuid())
+  code String
+
+  origin          String
+  originAirportId String
+  originAirport   Airport @relation("originAirport", fields: [originAirportId], references: [id])
+
+  destination          String
+  destinationAirportId String
+  destinationAirport   Airport @relation("destinationAirport", fields: [destinationAirportId], references: [id])
+
+  isDirectFlight        Boolean
+  scheduleDepartureTime DateTime
+  scheduleArrivalTime   DateTime
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  Flight    Flight[]
+  airportId String
+}
+
+model FlightUser {
+  id String @id @default(uuid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  flight   Flight @relation(fields: [flightId], references: [id])
+  flightId String
+
+  seatNo String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Airport {
+  id      String @id @default(uuid())
+  name    String
+  code    String
+  country String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  originFlightRoute      FlightRoute[] @relation("originAirport")
+  destinationFlightRoute FlightRoute[] @relation("destinationAirport")
+}
